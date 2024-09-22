@@ -1,12 +1,12 @@
-import React from "react";
-import { useGetTodoByIdQuery } from "../api/apiSlice"; // Ensure this hook is defined in your apiSlice
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClose } from "@fortawesome/free-solid-svg-icons";
+import { useGetTodoByIdQuery } from '../api/apiSlice'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faClose } from '@fortawesome/free-solid-svg-icons'
+import PropTypes from 'prop-types'
 
 const TodoModal = ({ idTodo, onClose }) => {
-    const { data: todo, isLoading, isSuccess } = useGetTodoByIdQuery(idTodo);
+    const { data: todo, isLoading, isSuccess } = useGetTodoByIdQuery(idTodo)
 
-    if (isLoading) return <p>Loading ...</p>;
+    if (isLoading) return <p>Loading ...</p>
     if (isSuccess) {
         return (
             <div className="modal">
@@ -27,10 +27,16 @@ const TodoModal = ({ idTodo, onClose }) => {
                     </article>
                 </div>
             </div>
-        );
+        )
     }
 
-    return <div>Could not fetch todo details.</div>;
-};
+    return <div>Could not fetch todo details.</div>
+}
 
-export default TodoModal;
+// Prop validation
+TodoModal.propTypes = {
+    idTodo: PropTypes.string.isRequired,
+    onClose: PropTypes.func.isRequired,
+}
+
+export default TodoModal

@@ -3,19 +3,19 @@ import {
     useDeleteTodoMutation,
     useCompleteTodoMutation,
     useAddTodoMutation,
-} from "../api/apiSlice";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+} from '../api/apiSlice'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faTrash,
     faUpload,
     faMagnifyingGlass,
-} from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
-import TodoModal from "./TodoModal";
+} from '@fortawesome/free-solid-svg-icons'
+import { useState } from 'react'
+import TodoModal from './TodoModal'
 
 const TodoList = () => {
-    const [newTodo, setNewTodo] = useState("");
-    const [selectedTodo, setSelectedTodo] = useState(null);
+    const [newTodo, setNewTodo] = useState('')
+    const [selectedTodo, setSelectedTodo] = useState(null)
 
     const {
         data: todosData,
@@ -23,33 +23,33 @@ const TodoList = () => {
         isSuccess,
         isError,
         error,
-    } = useGetTodosQuery();
-    const [addTodo] = useAddTodoMutation();
-    const [completeTodo] = useCompleteTodoMutation();
-    const [deleteTodo] = useDeleteTodoMutation();
+    } = useGetTodosQuery()
+    const [addTodo] = useAddTodoMutation()
+    const [completeTodo] = useCompleteTodoMutation()
+    const [deleteTodo] = useDeleteTodoMutation()
 
     const handleSubmit = (e) => {
-        e.preventDefault();
+        e.preventDefault()
         if (newTodo.trim()) {
-            addTodo({ text: newTodo, completed: false });
-            setNewTodo("");
+            addTodo({ text: newTodo, completed: false })
+            setNewTodo('')
         }
-    };
+    }
 
     const openModalHandler = (id) => {
-        setSelectedTodo(id);
-    };
+        setSelectedTodo(id)
+    }
 
     const handleCloseModal = () => {
-        setSelectedTodo(null);
-    };
+        setSelectedTodo(null)
+    }
 
-    let content;
+    let content
 
     if (isLoading) {
-        content = <p>Loading...</p>;
+        content = <p>Loading...</p>
     } else if (isSuccess && !selectedTodo) {
-        console.log(todosData[0]._id);
+        console.log(todosData[0]._id)
         /*    new Array(todosData).forEach((item) => {
             console.log(item[index]);
             index++;
@@ -90,14 +90,12 @@ const TodoList = () => {
                         </button>
                     </div>
                 </article>
-            );
-        });
+            )
+        })
     } else if (isError) {
-        content = <p>{error.message || "An error occurred"}</p>;
+        content = <p>{error.message || 'An error occurred'}</p>
     } else if (selectedTodo) {
-        content = (
-            <TodoModal idTodo={selectedTodo} onClose={handleCloseModal} />
-        );
+        content = <TodoModal idTodo={selectedTodo} onClose={handleCloseModal} />
     }
 
     return (
@@ -120,7 +118,7 @@ const TodoList = () => {
             </form>
             {content}
         </main>
-    );
-};
+    )
+}
 
-export default TodoList;
+export default TodoList
